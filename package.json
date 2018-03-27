@@ -3,7 +3,7 @@
     "name": "Alexey Repin"
   },
   "bin": {
-    "ecs-deploy": "console.js"
+    "aws-ecs": "console.js"
   },
   "bundleDependencies": false,
   "dependencies": {
@@ -18,7 +18,7 @@
   "description": "Deploy Docker containers to AWS ECS",
   "license": "MIT",
   "main": "index.js",
-  "name": "ecs-deploy",
+  "name": "aws-ecs",
   "preferGlobal": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
