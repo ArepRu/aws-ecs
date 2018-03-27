@@ -1,0 +1,27 @@
+{
+  "author": {
+    "name": "Alexey Repin"
+  },
+  "bin": {
+    "ecs-deploy": "console.js"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "aws-sdk": "^2.205.0",
+    "clui": "^0.3.6",
+    "inquirer": "^5.1.0",
+    "type-r": "^2.1.1",
+    "util.promisify": "^1.0.0",
+    "yargs": "^11.1.0"
+  },
+  "deprecated": false,
+  "description": "Deploy Docker containers to AWS ECS",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "ecs-deploy",
+  "preferGlobal": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.2"
+}
