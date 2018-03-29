@@ -62,7 +62,7 @@ class Docker {
         const q = new Questions( {profile : profile} );
         await q.ask([ q.types.repo ], args);
 
-        const tag = await Prompt.input('tag', 'Enter tag:', 'latest', args);
+        const tag = await Prompt.input('tag', 'Enter tag:', 'latest', null, args);
 
         const confirm = await Prompt.confirm('confirm', "Do you want to push docker image?", false, args);
 
