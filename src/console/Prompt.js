@@ -23,16 +23,16 @@ class Prompt {
             default  : value,
             message  : message,
             validate : !!validate ? validate : void(0)
-        } )
+        }, arg )
     }
 
-    confirm(name, message, value = false){
+    confirm(name, message, value = false, arg = null){
         return this.prompt( {
             type     : 'confirm',
             name     : name,
             default  : value,
             message  : message
-        } )
+        }, arg )
     }
 
     contourSelect( value, arg = null ) {
