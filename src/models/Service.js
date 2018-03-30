@@ -94,7 +94,7 @@ const Service = Record.extend( {
         } );
     },
 
-    async describe() {
+    async describe( list = null ) {
         AWS.config.update( {
             region : this.region
         } );
@@ -104,12 +104,12 @@ const Service = Record.extend( {
         return new Promise( ( resolve, reject ) => {
             ecs.describeServices( {
                 cluster    : this.cluster,
-                services   : [this.id]
+                services   : list ? list : [this.id]
             }, function( err, data ) {
                 if( err ) {
                     return reject( "Problem loading service info" );
                 }
-                resolve( data.services[0] );
+                resolve( list ? data.services : data.services[0] );
             } );
         } );
     }

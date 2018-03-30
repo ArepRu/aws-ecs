@@ -1,6 +1,7 @@
 const { Record } = require( 'type-r' ),
       AWS        = require( "aws-sdk" ),
-      Task       = require( './Task' );
+      Task       = require( './Task' ),
+      Service    = require('./Service');
 
 const Cluster = Record.extend( {
     defaults : {
@@ -31,17 +32,22 @@ const Cluster = Record.extend( {
             region : this.region
         } );
 
-        const ecs  = new AWS.ECS(),
-              task = new Task( { region : this.region, cluster : this.id } );
+        const ecs     = new AWS.ECS(),
+              service = new Service( { region : this.region, cluster : this.id } );
 
-        return task
+        return service
             .list()
-            .then( tasks => task.describeList( tasks ) )
+            .then( services => service.describe( services ) )
+            .then( services => {
+                const all = services.map(async (s) => await new Task( { region : this.region, cluster : this.id, id : s.taskDefinition } ).describe());
+
+                return Promise.all( all );
+
+            } )
             .then( tasks => {
                 let ports = [];
-                tasks.map( t => t.containers.map( c => c.networkBindings.forEach( n => {
-                    ports.push( n.hostPort );
-                } ) ) );
+
+                tasks.map( td => td.containerDefinitions.map(t => t.portMappings.map( p => { ports.push( p.hostPort ) } )));
 
                 return ports;
             } );
