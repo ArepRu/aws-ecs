@@ -9,6 +9,7 @@ const Profile = Record.extend( {
         regionECR        : String,
         profile          : String,
         repo             : String,
+        tag              : String,
         cluster          : String,
         task             : String,
         service          : String,
