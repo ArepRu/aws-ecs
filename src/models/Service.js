@@ -101,6 +101,10 @@ const Service = Record.extend( {
 
         const ecs = new AWS.ECS();
 
+        if (!list.length) {
+            return [];
+        }
+
         return new Promise( ( resolve, reject ) => {
             ecs.describeServices( {
                 cluster    : this.cluster,
