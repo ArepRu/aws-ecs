@@ -101,7 +101,7 @@ const Service = Record.extend( {
 
         const ecs = new AWS.ECS();
 
-        if (!list.length) {
+        if (!list && !this.id) {
             return [];
         }
 
