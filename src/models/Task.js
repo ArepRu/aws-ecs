@@ -17,7 +17,8 @@ const Task = Record.extend({
                 "environment"      : profile.env,
                 "name"             : profile.task,
                 "image"            : profile.repo + ":" + tag,
-                "memory"           : profile.container_memory,
+                // "memory"           : profile.container_memory,
+                "memoryReservation": profile.container_memory,
                 "cpu"              : profile.cpu_units,
                 "mountPoints"      : [],
                 "portMappings"     : [ {
