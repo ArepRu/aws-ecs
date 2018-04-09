@@ -36,7 +36,11 @@ const Service = Record.extend( {
         const ecs    = new AWS.ECS(),
               params = {
                   cluster        : this.cluster,
-                  desiredCount   : desiredCount
+                  desiredCount   : desiredCount,
+                  deploymentConfiguration: {
+                      maximumPercent: 200,
+                      minimumHealthyPercent: 50
+                  },
               };
 
         if ( taskDef ) {
@@ -116,7 +120,43 @@ const Service = Record.extend( {
                 resolve( list ? data.services : data.services[0] );
             } );
         } );
+    },
+
+    async stopTasks() {
+        AWS.config.update( {
+            region : this.region
+        } );
+
+        const ecs         = new AWS.ECS(),
+              serviceName = this.id.split( "service/" )[ 1 ];
+
+        return new Promise( ( resolve, reject ) => {
+            ecs.listTasks( {
+                cluster     : this.cluster,
+                serviceName : serviceName
+            }, function( err, data ) {
+                if( err ) {
+                    return reject( "Problem loading service info" );
+                }
+                resolve( data.taskArns );
+            });
+        } ).then( list => {
+            const all = list.map( async task => new Promise(( resolve, reject ) => {
+                ecs.stopTask( {
+                    cluster    : this.cluster,
+                    task       : task,
+                    reason     : "update"
+                }, function( err, data ) {
+                    if( err ) {
+                        return reject( "Problem loading service info" );
+                    }
+                    resolve( data );
+                } );
+            }) );
+
+            return Promise.all( all );
+        } );
     }
-} );
+});
 
 module.exports = Service;
