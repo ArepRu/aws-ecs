@@ -98,14 +98,14 @@ const Service = Record.extend( {
         } );
     },
 
-    async describe( list = null ) {
+    async describe( list = [] ) {
         AWS.config.update( {
             region : this.region
         } );
 
         const ecs = new AWS.ECS();
 
-        if (!list && !this.id) {
+        if (!list.length && !this.id) {
             return [];
         }
 
