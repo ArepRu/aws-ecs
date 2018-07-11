@@ -115,7 +115,7 @@ const Service = Record.extend( {
                 services   : list ? list : [this.id]
             }, function( err, data ) {
                 if( err ) {
-                    return reject( "Problem loading service info" );
+                    return reject( err );
                 }
                 resolve( list ? data.services : data.services[0] );
             } );
