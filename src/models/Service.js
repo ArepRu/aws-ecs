@@ -112,12 +112,12 @@ const Service = Record.extend( {
         return new Promise( ( resolve, reject ) => {
             ecs.describeServices( {
                 cluster    : this.cluster,
-                services   : list ? list : [this.id]
-            }, function( err, data ) {
+                services   : list.length ? list : [this.id]
+            }, ( err, data ) => {
                 if( err ) {
-                    return reject( err );
+                    return reject( "Problem loading service info" );
                 }
-                resolve( list ? data.services : data.services[0] );
+                resolve( list.length ? data.services : data.services[0] );
             } );
         } );
     },
