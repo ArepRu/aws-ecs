@@ -23,7 +23,7 @@ class Docker {
             } ).then( function( res ) {
                 // spinner.message( "Building image '" + tag + "' from docker file '" + profile.dockerfile + "'" );
 
-                return exec( 'docker build -f ' + profile.dockerfile + ' -t ' + repoName + ' .' )
+                return exec( 'docker build -f ' + profile.dockerfile + ' -t ' + repoName + ' .', {maxBuffer: 1024 * 1024})
             } ).then( function( res ) {
                 // spinner.message( "Tagging image '" + tag + "' from docker file '" + profile.dockerfile + "'" )
 
