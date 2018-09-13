@@ -52,15 +52,15 @@ class Docker {
         const profile   = new Profile(),
               fileExist = await new File( cwd + "/Dockerfile" ).exists();
 
-        if( !fileExist ) {
-            console.log( 'Dockerfile not found' );
-            return false;
-        }
+        // if( !fileExist ) {
+        //     console.log( 'Dockerfile not found' );
+        //     return false;
+        // }
 
         profile.regionECR = region;
 
         const q = new Questions( {profile : profile} );
-        await q.ask([ q.types.repo ], args);
+        await q.ask([ q.types.repo, q.types.dockerfile ], args);
 
         const tag = await Prompt.input('tag', 'Enter tag:', 'latest', null, args);
 
