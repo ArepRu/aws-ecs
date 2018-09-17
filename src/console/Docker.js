@@ -49,8 +49,8 @@ class Docker {
     }
 
     async push( region, args ) {
-        const profile   = new Profile(),
-              fileExist = await new File( cwd + "/Dockerfile" ).exists();
+        const profile   = new Profile();
+              // fileExist = await new File( cwd + "/Dockerfile" ).exists();
 
         // if( !fileExist ) {
         //     console.log( 'Dockerfile not found' );
