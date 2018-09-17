@@ -12,7 +12,8 @@ let argv = yargs
 const commandExist = ( cmd ) => argv._.indexOf( cmd ) > -1,
       error        = ( err ) => {
           spinner.stop();
-          console.log( '\x1b[31m%s\x1b[0m',  err )
+          console.log( '\x1b[31m%s\x1b[0m',  err );
+          process.exit(1)
       };
 
 if( commandExist( 'push' ) ) {
