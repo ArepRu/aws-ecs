@@ -23,7 +23,7 @@ class Docker {
             } ).then( function( res ) {
                 // spinner.message( "Building image '" + tag + "' from docker file '" + profile.dockerfile + "'" );
 
-                return exec( 'docker build -f ' + profile.dockerfile + ' -t ' + repoName + ' . > /dev/null', {maxBuffer: 1024 * 1024})
+                return exec( 'docker build -f ' + profile.dockerfile + ' -t ' + repoName + ' . > ' + profile.dockerlogfile || '/dev/null', {maxBuffer: 1024 * 1024})
             } ).then( function( res ) {
                 // spinner.message( "Tagging image '" + tag + "' from docker file '" + profile.dockerfile + "'" )
 
@@ -61,6 +61,10 @@ class Docker {
 
         const q = new Questions( {profile : profile} );
         await q.ask([ q.types.repo, q.types.dockerfile ], args);
+
+        if ( args.dockerlogfile ){
+            profile.dockerlogfile = args.dockerlogfile;
+        }
 
         const tag = await Prompt.input('tag', 'Enter tag:', 'latest', null, args);
 

@@ -5,6 +5,7 @@ const Profile = Record.extend( {
     defaults : {
         contour          : String,
         dockerfile       : String.value( 'Dockerfile' ),
+        dockerlogfile    : String,
         region           : String,
         regionECR        : String,
         profile          : String,
