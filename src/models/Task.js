@@ -38,6 +38,10 @@ const Task = Record.extend({
             } ]
         };
 
+        AWS.config.update( {
+            region : this.region
+        } );
+
         const ecs = new AWS.ECS();
 
         return new Promise( ( resolve, reject ) => {
